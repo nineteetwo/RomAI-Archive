@@ -1,76 +1,76 @@
-# Romato - Infliximab Tedavi Yanıtı Tahmin Sistemi
+# Romato - Infliximab Treatment Response Prediction System
 
-Romatoid Artrit hastalarının **Infliximab** ilacına vereceği yanıtı, tedavi öncesi gen ifade profillerine bakarak tahmin eden bir makine öğrenmesi projesi.
+A machine learning project that predicts Rheumatoid Arthritis patients' response to the **Infliximab** drug based on their pre-treatment gene expression profiles.
 
-## Ne İşe Yarar?
+## What Does It Do?
 
-Romatoid Artrit tedavisinde kullanılan Infliximab ilacı her hastada aynı etkiyi göstermiyor. Bazı hastalar tedaviye yanıt verirken (**Responder**), bazıları vermiyor (**Non-Responder**).
+The Infliximab drug used in Rheumatoid Arthritis treatment does not show the same effect in every patient. While some patients respond to the treatment (**Responder**), others do not (**Non-Responder**).
 
-Bu proje, hastanın tedaviye başlamadan önce alınan kan örneğindeki gen ifade verilerine bakarak:
-- Hastanın tedaviye yanıt verip vermeyeceğini tahmin eder
-- Gereksiz tedavi denemelerinin önüne geçer
-- Kişiselleştirilmiş tedavi planlamasına yardımcı olur
+By analyzing the gene expression data from blood samples taken before the patient starts treatment, this project:
+- Predicts whether the patient will respond to the treatment or not
+- Prevents unnecessary treatment trials
+- Helps in planning personalized treatments
 
-## Model Performansı
+## Model Performance
 
-| Metrik | Değer |
+| Metric | Value |
 |--------|-------|
-| Test Doğruluğu | **%87.5** |
+| Test Accuracy | **87.5%** |
 | AUC-ROC | 0.85 |
-| Kullanılan Gen Sayısı | 200 |
-| Eğitim Hasta Sayısı | 96 |
-| Test Hasta Sayısı | 16 |
+| Number of Genes Used | 200 |
+| Training Patient Count | 96 |
+| Test Patient Count | 16 |
 
-## Nasıl Çalışır?
+## How It Works?
 
-1. Hastanın tedavi öncesi gen ifade verisi alınır
-2. Batch effect düzeltmesi uygulanır
-3. En önemli 200 gen seçilir
-4. XGBoost modeli ile tahmin yapılır
-5. Sonuç: **Responder** veya **Non-Responder**
+1. The patient's pre-treatment gene expression data is obtained
+2. Batch effect correction is applied
+3. The most important 200 genes are selected
+4. Prediction is made using the XGBoost model
+5. Result: **Responder** or **Non-Responder**
 
-## Dosyalar
+## Files
 
-| Dosya | Açıklama |
+| File | Description |
 |-------|----------|
-| `predict_87.py` | Ana tahmin modeli |
-| `demo_page.py` | Demo HTML sayfası oluşturucu |
-| `demo_sonuclari.html` | Örnek tahmin sonuçları sayfası |
-| `gene_expression_extended.csv` | Gen ifade verileri |
-| `response_labels_extended.csv` | Tedavi yanıtı etiketleri |
-| `test_ifx_metadata.csv` | Test hastası bilgileri |
-| `xgboost_model_final.pkl` | Eğitilmiş model |
+| `predict_87.py` | Main prediction model |
+| `demo_page.py` | Demo HTML page generator |
+| `demo_sonuclari.html` | Sample prediction results page |
+| `gene_expression_extended.csv` | Gene expression data |
+| `response_labels_extended.csv` | Treatment response labels |
+| `test_ifx_metadata.csv` | Test patient information |
+| `xgboost_model_final.pkl` | Trained model |
 
-## Kurulum
+## Installation
 
 ```bash
-# Repoyu klonla
-git clone https://github.com/KULLANICI_ADI/Romato.git
+# Clone the repository
+git clone https://github.com/USERNAME/Romato.git
 cd Romato
 
-# Gereksinimleri yükle
+# Install requirements
 pip install -r requirements.txt
 ```
 
-## Kullanım
+## Usage
 
-### Model Bilgisi
+### Model Information
 ```bash
 python predict_87.py
 ```
 
-### Test Çalıştır
+### Run Tests
 ```bash
 python predict_87.py --test
 ```
 
-### Demo Sayfası Oluştur
+### Generate Demo Page
 ```bash
 python demo_page.py
 ```
-Ardından `demo_sonuclari.html` dosyasını tarayıcıda açın.
+Then open the `demo_sonuclari.html` file in your browser.
 
-### Örnek 2 HASTA İÇİN TEST SONUÇLARI
+### TEST RESULTS FOR 2 SAMPLE PATIENTS
 <img width="1144" height="416" alt="image" src="https://github.com/user-attachments/assets/10ec645d-88a6-4c6a-bcda-2ae64480c97b" />
 <img width="1004" height="869" alt="image" src="https://github.com/user-attachments/assets/8cde968b-105e-4520-aedb-3a6893fc1475" />
 <img width="1000" height="864" alt="image" src="https://github.com/user-attachments/assets/db42a069-c3f8-4642-97be-cd263ba137f9" />
@@ -80,26 +80,26 @@ Ardından `demo_sonuclari.html` dosyasını tarayıcıda açın.
 
 
 
-## Veri Kaynakları
+## Data Sources
 
-Projede kullanılan veriler GEO (Gene Expression Omnibus) veritabanından alınmıştır:
+The data used in the project were obtained from the GEO (Gene Expression Omnibus) database:
 - GSE58795
 - GSE78068
 
-## Teknolojiler
+## Technologies
 
 - Python 3
 - XGBoost
 - Scikit-learn
 - Pandas / NumPy
 
-## Örnek Sonuç
+## Example Output
 
 ```
-[+] 58795_Subject 407  | Gerçek: RESPONDER     | Tahmin: RESPONDER     | Güven: 97.8%
-[+] 78068_35           | Gerçek: NON_RESPONDER | Tahmin: NON_RESPONDER | Güven: 72.4%
+[+] 58795_Subject 407  | Actual: RESPONDER     | Prediction: RESPONDER     | Confidence: 97.8%
+[+] 78068_35           | Actual: NON_RESPONDER | Prediction: NON_RESPONDER | Confidence: 72.4%
 ```
 
-## Lisans
+## License
 
 MIT License
